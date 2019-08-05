@@ -1,0 +1,24 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+{% load static %}
+<link rel ="stylesheet" href = "{% static 'styles.css' %}">
+<div class="card">
+<div class="card-body">
+<h4 class="card-title"></h4>
+
+<form method="post">
+{% csrf_token %}
+<input type="hidden" name="next" value="{{ next }}">
+
+{{ form|crispy }}
+
+<button type="submit" class="btn btn-primary btn-block">Log in</button>
+</form>
+</div>
+<a href="{% url 'password_change' %}" align = 'center'>
+Change password
+</a><br>
+</div>
+{% endblock %}
