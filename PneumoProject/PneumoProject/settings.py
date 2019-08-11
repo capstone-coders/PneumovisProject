@@ -86,6 +86,14 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
+    },
+    'mysql': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tfymua001',
+        'USER': 'tfymua001',
+        'PASSWORD': 'OGaekae5',
+        'HOST': 'nightmare.cs.uct.ac.za',
+        'PORT': '3306',
     }
 }
 
