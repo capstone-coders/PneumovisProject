@@ -6,7 +6,7 @@ from PneumoAcc import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns =[
-    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('', auth_views.LoginView.as_view(), name='login'),
     url(r'data', views.ToData, name='data'),
     url(r'query', views.ToQuery, name='query'),
 

@@ -9,6 +9,7 @@ from django.contrib.auth import views as auth_views
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.views import PasswordChangeView
+from .models import database
 
 class Post(models.Model):
     pic = models.ImageField(default = "logo.png")
@@ -22,8 +23,12 @@ class LoginAfterPasswordChangeView(PasswordChangeView):
     success_url = '/dashboard' # <- choose your URL
 def ToDashboard(request):
     return render(request, 'dashboard.html')
+    
 def ToData(request):
-    return render(request, 'data.html')
+    obj = database.objects.using('mysql').get(id = 1)
+    content = { "object":obj }
+    return render(request, "data.html", content)
+
 def ToQuery(request):
     return render(request, 'query.html')
     # Create your views here.
