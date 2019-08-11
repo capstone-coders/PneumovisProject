@@ -31,6 +31,10 @@ urlpatterns = [
     path('PneumoAcc/', include('PneumoAcc.urls')), # new
     path('login/', auth_views.LoginView.as_view(), name='login'),
     url(r'dashboard', views.ToDashboard, name='dashboard'),
+    url(r'data', views.ToData, name='data'),
+    url(r'query', views.ToQuery, name='query'),
+
+
 
 
 ]

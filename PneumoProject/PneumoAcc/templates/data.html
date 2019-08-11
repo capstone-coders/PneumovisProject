@@ -64,14 +64,18 @@
   .sidenav a:hover {
       color: #A1AEDB;
   }
-
+.h1{
+  color: #C4C9E6;
+}
   .main {
-      margin-left: 200px; /* Same as the width of the sidenav */
+      margin-left: 300px; /* Same as the width of the sidenav */
+
   }
 
   @media screen and (max-height: 300px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
+
   }
   </style>
 <title>PneumoVis</title>
@@ -86,7 +90,7 @@
 
         <div class="sidenav" align = "left">
           <br>
-          <h1 > &ensp;PneumoVis</h1><img class = "center" src="{% static "logo.png" %}" alt="logo"  width="80" height="80"/>
+          <h1 color= "#C4C9E6" > &ensp;PneumoVis</h1><img class = "center" src="{% static "logo.png" %}" alt="logo"  width="80" height="80"/>
   <hr>
           <a href="{% url 'dashboard' %}">Dashboard</a>
           <a href="{% url 'data' %}">Data</a>
@@ -95,76 +99,36 @@
           <a href="{% url 'login' %}"><button class= #button class = "center">Log out</button></a>
 
         </div>
-        <style>
-        .container {
-             width:1000px;
-             height:130px;
-             background-color:color|transparent|initial|inherit;
-             padding-top:20px;
-             padding-left:5px;
-
-             margin-left:380px;
-
-
-             padding-right:10px;
-         }
-         #st-box {
-             float:left;
-             width:180px;
-             height:160px;
-             background-color:white;
-             margin-left:30px;
-             margin-right:7px;
-             border-radius: 25px;
-
-         }
-         #nd-box {
-             float:left;
-             width:180px;
-             height:160px;
-             background-color:white;
-             margin-left:30px;
-             border-radius: 25px;
-
-         }
-         #rd-box {
-             float:left;
-             width:180px;
-             height:160px;
-             background-color:white;
-             margin-left:30px;
-             margin-right:7px;
-             border-radius: 25px;
+  <div class = "main">
+    <p style="color:#C4C9E6;font-size: 25px;">Choose item to filter data by:</p><br>
+     <form>
+        <select name = "dropdown">
+           <option value = "PatientID" selected>PatientID</option>
+           <option value = "Age">Age</option>
+           <option value = "Site">Site</option>
+           <option value = "HIV">HIV</option>
+           <option value = "Serotype">Serotype</option>
 
 
-         }
+        </select>
+     </form> <br><br>
+     <div style="overflow:scroll;     height:250px;
+">
 
-
-         </style>
-
-     <body>
-         <center>
-
-         <div class="container">
-             <div id="st-box"><br><br>
-                 Patients Detected: <br> 1006
-             </div>
-
-             <div id="nd-box">
-                 <br><br>
-                    Presence:<br> 130/1006
-
-             </div>
-
-             <div id="rd-box">
-                 <br><br>Majority Serotype:<br> ST10573
-             </div>
-             <div id="rd-box">
-                 <br><br>HIV Prevalence:<br> 103/1006
-             </div>
-
-         </div>
-         </center>
+     <table width=400px cellpadding="10" bgcolor="white" border= 1px solid black>
+  <tr>
+    <th>PatientID</th>
+    <th>Age</th>
+    <th>HIV</th>
+    <th>Site</th>
+    <th>Serotype</th>
+  </tr>
+<tr> <th>1</th><th>12</th><th>No</th><th>Gugulethu</th><th>32</th></tr>
+<tr><th>2</th><th>19</th><th>No</th><th>Mandalay</th><th>13</th></tr>
+<tr><th>3</th><th>22</th><th>Yes</th><th>Gugulethu</th><th>13</th></tr>
+<tr><th>4</th><th>11</th><th>No</th><th>Mandalay</th><th>11A</th></tr>
+<tr><th>5</th><th>18</th><th>No</th><th>Gugulethu</th><th>11A</th></tr>
+</table></div></div>
      </body>
 
     {% endblock %}

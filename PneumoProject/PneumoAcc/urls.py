@@ -7,7 +7,9 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns =[
     path('login/', auth_views.LoginView.as_view(), name='login'),
-    url(r'dashboard', views.ToDashboard, name='dashboard'),
+    url(r'data', views.ToData, name='data'),
+    url(r'query', views.ToQuery, name='query'),
+
     path('password-change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),]
 

@@ -13,19 +13,19 @@ from django.contrib.auth.views import PasswordChangeView
 class Post(models.Model):
     pic = models.ImageField(default = "logo.png")
 
-
-
 class LoginAfterPasswordChangeView(PasswordChangeView):
     @property
     def success_url(self):
         return reverse('login')
 
-
 #class CustomPasswordChangeView(PasswordChangeView):
     success_url = '/dashboard' # <- choose your URL
-#
 def ToDashboard(request):
     return render(request, 'dashboard.html')
+def ToData(request):
+    return render(request, 'data.html')
+def ToQuery(request):
+    return render(request, 'query.html')
     # Create your views here.
 path('password-change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
 path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
