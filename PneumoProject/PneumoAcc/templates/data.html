@@ -27,6 +27,26 @@
     width: 40%;
   }
   /* Clear floats (clearfix hack) */
+  .container {
+       width:1000px;
+       height:130px;
+       background-color:color|transparent|initial|inherit;
+
+   }
+   #st-box {
+       float:left;
+       width:400px;
+       height:150px;
+       background-color:#C4C9E6;
+       margin-left:1px;
+       margin-right:7px;
+       padding-left:5px;
+       padding-top:15px;
+
+
+       border-radius: 25px;
+
+   }
   .btn-group:after {
       content: "";
       clear: both;
@@ -69,7 +89,6 @@
 }
   .main {
       margin-left: 300px; /* Same as the width of the sidenav */
-
   }
 
   @media screen and (max-height: 300px) {
@@ -100,7 +119,8 @@
 
         </div>
   <div class = "main">
-    <p style="color:#C4C9E6;font-size: 25px;">Choose item to filter data by:</p><br>
+    <table cellpadding="30" width=1000px height = 200px  ><tr><td align = "center"> <div class = "container"> <div id ="st-box">
+    <p style="color:black;font-size: 25px;">Filter Data By Attribute</p><br>
      <form>
         <select name = "dropdown">
            <option value = "PatientID" selected>PatientID</option>
@@ -109,13 +129,15 @@
            <option value = "HIV">HIV</option>
            <option value = "Serotype">Serotype</option>
 
-
         </select>
-     </form> <br><br>
-     <div style="overflow:scroll;     height:250px;
-">
+     </form></div></td> <br> <td align = "center" > <div id ="st-box"><p style="color:black;font-size: 25px;">Upload Dataset</p>
+       <input type="file" webkitdirectory multiple><br><button type="button">Upload</button>
 
-     <table width=400px cellpadding="10" bgcolor="white" border= 1px solid black>
+</div>
+      </td></tr></table><br><br>
+     <div style="overflow:scroll;     height:250px;">
+
+     <table align = "center" id ="lol" width=400px cellpadding="10" bgcolor="white" border= "solid" black>
   <tr>
     <th>PatientID</th>
     <th>Age</th>
@@ -128,7 +150,7 @@
 <tr><th>3</th><th>22</th><th>Yes</th><th>Gugulethu</th><th>13</th></tr>
 <tr><th>4</th><th>11</th><th>No</th><th>Mandalay</th><th>11A</th></tr>
 <tr><th>5</th><th>18</th><th>No</th><th>Gugulethu</th><th>11A</th></tr>
-</table></div></div>
+</table> </div><br><button  align = "center"type="button">Export as CSV</button></div>
      </body>
 
     {% endblock %}
