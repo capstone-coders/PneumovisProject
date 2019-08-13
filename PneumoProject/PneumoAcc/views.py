@@ -31,7 +31,7 @@ def ToDashboard(request):
 	return render(request, 'dashboard.html', content)
     
 def ToData(request):
-    table = database.objects.using('mysql').raw('SELECT * FROM PneumoVis WHERE Patient_ID="PT1"')
+    table = database.objects.using('mysql').raw('SELECT * FROM PneumoVis WHERE Patient_ID="PT1" ORDER BY DateCollection ASC')
     content = { "t":table }
     return render(request, "data.html", content)
 

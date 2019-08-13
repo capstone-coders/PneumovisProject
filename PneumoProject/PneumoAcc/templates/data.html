@@ -157,20 +157,20 @@
 
 	{% for item in t %}
     <tr> 
-        <td>{{ t.Patient_ID }}</td>
-        <td>{{ t.Barcode }}</td>
-        <td>{{ t.Week }}</td>
-        <td>{{ t.npa_a4_growth }}</td>
-        <td>{{ t.DateCollection }}</td>
-        <td>{{ t.Presence }}</td>
-        <td>{{ t.dob }}</td>
-        <td>{{ t.sex }}</td>
-        <td>{{ t.HIVexpose }}</td>
-        <td>{{ t.site }}</td>
-        <td>{{ t.Disease }}</td>
-        <td>{{ t.Serotype }}</td>
-        <td>{{ t.vaccine_status }}</td>
-        <td>{{ t.Sequence_Type }}</td>
+        <td>{{ item.Patient_ID }}</td>
+        <td>{{ item.Barcode }}</td>
+        <td>{{ item.Week }}</td>
+        <td>{{ item.npa_a4_growth }}</td>
+        <td>{{ item.DateCollection }}</td>
+        <td>{{ item.Presence }}</td>
+        <td>{{ item.dob }}</td>
+        <td>{{ item.sex }}</td>
+        <td>{{ item.HIVexpose }}</td>
+        <td>{{ item.site }}</td>
+        <td>{{ item.Disease }}</td>
+        <td>{{ item.Serotype }}</td>
+        <td>{{ item.vaccine_status }}</td>
+        <td>{{ item.Sequence_Type }}</td>
     </tr>
     {% endfor %}
 
