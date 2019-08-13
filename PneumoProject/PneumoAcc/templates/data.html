@@ -140,16 +140,40 @@
      <table align = "center" id ="lol" width=400px cellpadding="10" bgcolor="white" border= "solid" black>
   <tr>
     <th>PatientID</th>
-    <th>Age</th>
-    <th>HIV</th>
-    <th>Site</th>
+    <th>Barcode</th>
+    <th>Week</th>
+    <th>Growth</th>
+    <th>Date of Collection</th>
+    <th>Presence</th>
+    <th>Date of Birth</th>
+    <th>Gender</th>
+    <th>HIV Exposed</th>
+    <th>Location</th>
+    <th>Disease</th>
     <th>Serotype</th>
+    <th>Vaccine Status</th>
+    <th>Sequence Type</th>
   </tr>
-<tr> <th>1</th><th>12</th><th>No</th><th>Gugulethu</th><th>32</th></tr>
-<tr><th>2</th><th>19</th><th>No</th><th>Mandalay</th><th>13</th></tr>
-<tr><th>3</th><th>22</th><th>Yes</th><th>Gugulethu</th><th>13</th></tr>
-<tr><th>4</th><th>11</th><th>No</th><th>Mandalay</th><th>11A</th></tr>
-<tr><th>5</th><th>18</th><th>No</th><th>Gugulethu</th><th>11A</th></tr>
+
+	{% for item in t %}
+    <tr> 
+        <td>{{ t.Patient_ID }}</td>
+        <td>{{ t.Barcode }}</td>
+        <td>{{ t.Week }}</td>
+        <td>{{ t.npa_a4_growth }}</td>
+        <td>{{ t.DateCollection }}</td>
+        <td>{{ t.Presence }}</td>
+        <td>{{ t.dob }}</td>
+        <td>{{ t.sex }}</td>
+        <td>{{ t.HIVexpose }}</td>
+        <td>{{ t.site }}</td>
+        <td>{{ t.Disease }}</td>
+        <td>{{ t.Serotype }}</td>
+        <td>{{ t.vaccine_status }}</td>
+        <td>{{ t.Sequence_Type }}</td>
+    </tr>
+    {% endfor %}
+
 </table> </div><br><button  align = "center"type="button">Export as CSV</button></div>
      </body>
 
