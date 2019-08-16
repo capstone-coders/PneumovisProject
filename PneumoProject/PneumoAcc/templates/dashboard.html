@@ -14,7 +14,7 @@
       background-color: black; /* darkblue background */
       border: 1px solid black; /* blue border */
       color: white; /* White text */
-      font-size: 25px;
+      font-size: 15px;
 
       padding: 10px 24px; /* Some padding */
       cursor: pointer; /* Pointer/hand icon */
@@ -56,7 +56,7 @@
   .sidenav a {
       padding: 6px 6px 6px 32px;
       text-decoration: none;
-      font-size: 25px;
+      font-size: 20px;
       color: black;
       display: block;
   }
@@ -91,8 +91,11 @@
           <a href="{% url 'dashboard' %}">Dashboard</a>
           <a href="{% url 'data' %}">Data</a>
           <a href="{% url 'query' %}">Query</a><hr>
-          <br><br><br><br><br><br><br><br>
-          <a href="{% url 'login' %}"><button class= #button class = "center">Log out</button></a>
+          <br><br><br><br><br><br><br>
+          <a href="{% url 'password_change' %}" align = 'center'>
+        <button class= #button class = "center">Change Password</button>
+          </a><br>
+          <a href="{% url 'login' %}" align = "center"><button class= #button class = "center">Log out</button></a>
 
         </div>
         <style>
@@ -147,20 +150,20 @@
 
          <div class="container">
              <div id="st-box"><br><br>
-                 Patients Detected: <br> 1006
+				Patients: <br> {{patients}}
              </div>
 
              <div id="nd-box">
                  <br><br>
-                    Presence:<br> 130/1006
+                    Presence:<br> {{presence}} / {{samples}}
 
              </div>
 
              <div id="rd-box">
-                 <br><br>Majority Serotype:<br> ST10573
+                 <br><br>Majority Serotype:<br> {{majority}}
              </div>
              <div id="rd-box">
-                 <br><br>HIV Prevalence:<br> 103/1006
+                 <br><br>HIV Prevalence:<br> {{HIV}} / {{patients}}
              </div>
 
          </div>

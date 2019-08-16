@@ -76,7 +76,7 @@
   .sidenav a {
       padding: 6px 6px 6px 32px;
       text-decoration: none;
-      font-size: 25px;
+      font-size: 20px;
       color: black;
       display: block;
   }
@@ -114,8 +114,11 @@
           <a href="{% url 'dashboard' %}">Dashboard</a>
           <a href="{% url 'data' %}">Data</a>
           <a href="{% url 'query' %}">Query</a><hr>
-          <br><br><br><br><br><br><br><br>
-          <a href="{% url 'login' %}"><button class= #button class = "center">Log out</button></a>
+          <br><br><br><br><br><br><br>
+          <a href="{% url 'password_change' %}" align = 'center'>
+        <button class= #button class = "center">Change Password</button>
+          </a><br>
+          <a href="{% url 'login' %}" align = "center"><button class= #button class = "center">Log out</button></a>
 
         </div>
   <div class = "main">
@@ -140,16 +143,40 @@
      <table align = "center" id ="lol" width=400px cellpadding="10" bgcolor="white" border= "solid" black>
   <tr>
     <th>PatientID</th>
-    <th>Age</th>
-    <th>HIV</th>
-    <th>Site</th>
+    <th>Barcode</th>
+    <th>Week</th>
+    <th>Growth</th>
+    <th>Date of Collection</th>
+    <th>Presence</th>
+    <th>Date of Birth</th>
+    <th>Gender</th>
+    <th>HIV Exposed</th>
+    <th>Location</th>
+    <th>Disease</th>
     <th>Serotype</th>
+    <th>Vaccine Status</th>
+    <th>Sequence Type</th>
   </tr>
-<tr> <th>1</th><th>12</th><th>No</th><th>Gugulethu</th><th>32</th></tr>
-<tr><th>2</th><th>19</th><th>No</th><th>Mandalay</th><th>13</th></tr>
-<tr><th>3</th><th>22</th><th>Yes</th><th>Gugulethu</th><th>13</th></tr>
-<tr><th>4</th><th>11</th><th>No</th><th>Mandalay</th><th>11A</th></tr>
-<tr><th>5</th><th>18</th><th>No</th><th>Gugulethu</th><th>11A</th></tr>
+
+	{% for item in t %}
+    <tr> 
+        <td>{{ item.Patient_ID }}</td>
+        <td>{{ item.Barcode }}</td>
+        <td>{{ item.Week }}</td>
+        <td>{{ item.npa_a4_growth }}</td>
+        <td>{{ item.DateCollection }}</td>
+        <td>{{ item.Presence }}</td>
+        <td>{{ item.dob }}</td>
+        <td>{{ item.sex }}</td>
+        <td>{{ item.HIVexpose }}</td>
+        <td>{{ item.site }}</td>
+        <td>{{ item.Disease }}</td>
+        <td>{{ item.Serotype }}</td>
+        <td>{{ item.vaccine_status }}</td>
+        <td>{{ item.Sequence_Type }}</td>
+    </tr>
+    {% endfor %}
+
 </table> </div><br><button  align = "center"type="button">Export as CSV</button></div>
      </body>
 
