@@ -22,11 +22,17 @@ class LoginAfterPasswordChangeView(PasswordChangeView):
 #class CustomPasswordChangeView(PasswordChangeView):
     success_url = '/dashboard' # <- choose your URL
 def ToDashboard(request):
-    return render(request, 'dashboard.html')
+	patients = database.objects.using('mysql').raw('SELECT COUNT(DISTINCT Patient_ID) as id from PneumoVis')[0]
+	presence = database.objects.using('mysql').raw('SELECT COUNT(Presence) as id from PneumoVis WHERE Presence="Yes"')[0]
+	samples = database.objects.using('mysql').raw('SELECT COUNT(*) as id FROM PneumoVis')[0]
+	majority = database.objects.using('mysql').raw('SELECT Serotype as id, COUNT(*) as count FROM PneumoVis WHERE Serotype!="" GROUP BY Serotype ORDER BY count DESC LIMIT 1')[0]
+	hiv = database.objects.using('mysql').raw('SELECT COUNT(*) as id FROM (SELECT DISTINCT(Patient_ID), HIVexpose FROM PneumoVis WHERE HIVexpose="Yes") as totals')[0]
+	content = {"patients":patients.id, "presence":presence.id, "samples": samples.id, "majority":majority.id, "HIV":hiv.id}
+	return render(request, 'dashboard.html', content)
     
 def ToData(request):
-    obj = database.objects.using('mysql').get(id = 1)
-    content = { "object":obj }
+    table = database.objects.using('mysql').raw('SELECT * FROM PneumoVis WHERE Patient_ID="PT1" ORDER BY DateCollection ASC')
+    content = { "t":table }
     return render(request, "data.html", content)
 
 def ToQuery(request):
