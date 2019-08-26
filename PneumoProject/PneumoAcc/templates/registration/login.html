@@ -13,7 +13,14 @@
 <input type="hidden" name="next" value="{{ next }}">
 
 {{ form|crispy }}
-
+<style>
+body {
+    font-family: "Lato", sans-serif;
+}
+body {
+    background: black url({% static "bg.jpg" %}) no-repeat;
+}
+</style>
 <button type="submit" class="btn btn-primary btn-block">Log in</button>
 </form>
 </div>

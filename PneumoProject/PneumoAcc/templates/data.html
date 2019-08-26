@@ -10,6 +10,10 @@
   body {
       font-family: "Lato", sans-serif;
   }
+
+  body {
+      background: black url({% static "bg2.png" %}) no-repeat;
+  }
   .btn-group button {
       background-color: black; /* darkblue background */
       border: 1px solid black; /* blue border */
@@ -159,7 +163,7 @@
   </tr>
 
 	{% for item in t %}
-    <tr> 
+    <tr>
         <td>{{ item.Patient_ID }}</td>
         <td>{{ item.Barcode }}</td>
         <td>{{ item.Week }}</td>

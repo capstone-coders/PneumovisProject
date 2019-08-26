@@ -29,9 +29,9 @@ def ToDashboard(request):
 	hiv = database.objects.using('mysql').raw('SELECT COUNT(*) as id FROM (SELECT DISTINCT(Patient_ID), HIVexpose FROM PneumoVis WHERE HIVexpose="Yes") as totals')[0]
 	content = {"patients":patients.id, "presence":presence.id, "samples": samples.id, "majority":majority.id, "HIV":hiv.id}
 	return render(request, 'dashboard.html', content)
-    
+
 def ToData(request):
-    table = database.objects.using('mysql').raw('SELECT * FROM PneumoVis WHERE Patient_ID="PT1" ORDER BY DateCollection ASC')
+    table = database.objects.using('mysql').raw('SELECT * FROM PneumoVis ORDER BY DateCollection ASC')
     content = { "t":table }
     return render(request, "data.html", content)
 
