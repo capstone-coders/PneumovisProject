@@ -34,6 +34,9 @@ urlpatterns = [
     url(r'data', views.ToData, name='data'),
     url(r'query', views.ToQuery, name='query'),
 
+    url(r'^query', views.chart, name = 'demo'),
+
+
 
 
 

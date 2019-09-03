@@ -9,6 +9,8 @@ urlpatterns =[
     path('', auth_views.LoginView.as_view(), name='login'),
     url(r'data', views.ToData, name='data'),
     url(r'query', views.ToQuery, name='query'),
+    url(r'^query', views.chart, name = 'demo'),
+
 
     path('password-change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),]

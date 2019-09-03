@@ -138,6 +138,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'assets')]
+STATIC_ROOT = '/Users/user/Documents/GitHub/PneumovisProject/PneumoProject/'
+
 
 MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL =  'PneumoAcc/dashboard'

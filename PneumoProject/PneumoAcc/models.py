@@ -17,10 +17,13 @@ class database(models.Model):
     Disease = models.TextField(default='')
     Serotype = models.TextField(default='')
     vaccine_status = models.TextField(default='')
-    Sequence_Type = models.TextField(default='') 
-    
+    Sequence_Type = models.TextField(default='')
+
     class Meta:
         db_table = 'PneumoVis'
-    
+
     def __str__(self):
         return self.Patient_ID
+
+    def __unicode__(self):
+        return u'%s %s' % (self.sex, self.id)
