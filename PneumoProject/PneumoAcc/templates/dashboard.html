@@ -80,6 +80,8 @@
   </style>
 <title>PneumoVis</title>
 </head>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js" ></script>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.timeseries.js" ></script>
 <body>
 
       <head>
@@ -171,6 +173,8 @@
              </div>
 
          </div>
+	<div id="chart-1" style="overflow: auto; width:1250px; height:750px"></div>
+         {{output|safe}}
          </center>
      </body>
 
