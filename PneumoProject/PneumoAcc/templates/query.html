@@ -84,9 +84,13 @@
 <body>
 
       <head>
+        <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+         <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+
       <link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="/Users/user/PneumoProject/assets/styles.css"> <br><br>
       <body>
+
   <!-- Side Navigation bar-->
 
         <div class="sidenav" align = "left">
@@ -116,12 +120,14 @@
      </form><br><br>
  <!--<img  src="{% static "bar.png" %}" alt="bar" >-->
  <head>
-  {% load static %} 
-   <script type="text/javascript" src="{% static "fusioncharts/fusioncharts.js" %}"></script>
-   <script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.fint.js" %}"></script>
-</head>
-<body>
-  <div id="chart-1">{{ output|safe }}</div>
+  {% load static %}
+   </head>
+<bodystyle="font-family:'Helvetica Neue', Arial; font-size: 16px;">
+<h3>{{ chartTitle|safe }}</h3>
+<div id="chart-1">{{ output|safe }}</div>
+<div id="chart-2">{{ output_2|safe }}</div>
+<br/>
+<a href="/">Back</a>>
 </body>
    </div>
      </body>
