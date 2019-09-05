@@ -233,7 +233,7 @@ def ToQuery(request):
 	search = ""
 	if request.POST:
 		answer=request.POST['dropdown']
-		if request.POST['PID']:
+		if 'PID' in request.POST:
 			search=request.POST['PID']
 		
 	if answer == "Gender VS Location VS Presence":	
@@ -370,9 +370,9 @@ def ToQuery(request):
 		catarr = {}
 		catarr["category"] = []
 		if search == "":
-			newdatabase = database.objects.using('mysql').raw('SELECT DISTINCT(Patient_ID) as id from PneumoVis ORDER BY Patient_ID ASC')
+			newdatabase = database.objects.using('mysql').raw('SELECT Patient_ID as id, COUNT(Patient_ID) as count FROM PneumoVis GROUP BY Patient_ID ORDER BY Patient_ID ASC')
 		else:
-			newdatabase = database.objects.using('mysql').raw('SELECT DISTINCT(Patient_ID) as id from PneumoVis WHERE Patient_ID=%s ORDER BY Patient_ID ASC', [search])
+			newdatabase = database.objects.using('mysql').raw('SELECT Patient_ID as id, COUNT(Patient_ID) as count FROM PneumoVis WHERE Patient_ID=%s GROUP BY Patient_ID ORDER BY Patient_ID ASC', [search])
 		for key in newdatabase:
 			c = {}
 			c["label"] = key.id
@@ -383,10 +383,10 @@ def ToQuery(request):
 		s1atarr = {}
 		s1atarr["seriesname"] = "Number of Data Collected"
 		s1atarr["data"] = []
-		for key in database.objects.using('mysql').raw('SELECT Patient_ID as id, COUNT(Patient_ID) as count FROM PneumoVis GROUP BY Patient_ID ORDER BY Patient_ID ASC'):
+		for key in newdatabase:
 			d = {}
 			d["value"] = key.count
-			d["link"] = "p-detailsWin,width=220,height=580,toolbar=no-http://localhost:8000/popup"+key.id
+			d["link"] = "n-detailsWin,width=220,height=580,toolbar=no-http://localhost:8000/popup"+key.id
 			s1atarr["data"].append(d)
 		dataSource["dataset"].append(s1atarr)
 		

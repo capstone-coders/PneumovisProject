@@ -129,19 +129,19 @@
 			{% if answer == "Gender VS Location VS Presence" %}
            <option value = "Gender VS Location VS Presence" selected>Gender VS Location VS Presence</option>
            <option value = "HIV VS Presence">HIV VS Presence</option>
-           <option value = "Serotype Development in Weeks">Serotype Development in Weeks</option>
+           <option value = "Serotype Chart Per Patient">Serotype Chart Per Patient</option>
 			{% elif answer == "HIV VS Presence" %}
 		   <option value = "Gender VS Location VS Presence">Gender VS Location VS Presence</option>
            <option value = "HIV VS Presence" selected>HIV VS Presence</option>
-           <option value = "Serotype Development in Weeks">Serotype Development in Weeks</option>
+           <option value = "Serotype Chart Per Patient">Serotype Chart Per Patient</option>
 			{% else %}
 		   <option value = "Gender VS Location VS Presence">Gender VS Location VS Presence</option>
            <option value = "HIV VS Presence">HIV VS Presence</option>
-           <option value = "Serotype Development in Weeks" selected>Serotype Development in Weeks</option>
+           <option value = "Serotype Chart Per Patient" selected>Serotype Chart Per Patient</option>
 			{% endif %}
         </select>
         <input type="submit" value="Select">
-        {% if answer == "Serotype Development in Weeks" %}
+        {% if answer == "Serotype Chart Per Patient" %}
         Patient ID: <input type="text" name="PID" value={{search}}>
         <input type="submit" value="Search">
         {% endif %}
