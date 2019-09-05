@@ -23,6 +23,22 @@
       cursor: pointer; /* Pointer/hand icon */
       float: left; /* Float the buttons side by side */
   }
+  
+     #st-box {
+       float:left;
+       width:400px;
+       height:150px;
+       background-color:#C4C9E6;
+       margin-left:1px;
+       margin-right:7px;
+       padding-left:5px;
+       padding-top:15px;
+
+
+       border-radius: 25px;
+
+   }
+  
   .center {
     display: block;
     margin-left: auto;
@@ -81,6 +97,8 @@
   </style>
 <title>PneumoVis</title>
 </head>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js" ></script>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.timeseries.js" ></script>
 <body>
 
       <head>
@@ -104,17 +122,34 @@
 
         </div>
   <div class = "main">
-    <p style="color:#C4C9E6;font-size: 25px;">Visualization Filter:</p><br>
-     <form>
+	  <table cellpadding="10" width=1000px height = 200px  ><tr><td align = "center"> <div class = "container"> <div id ="st-box">
+    <p style="color:#171717;font-size: 25px;">Visualization Filter:</p>
+     <form method="post"> {% csrf_token %}
         <select name = "dropdown">
-           <option value = "PatientID" selected>PatientID</option>
-           <option value = "Age">Age</option>
-           <option value = "Site">Site</option>
-           <option value = "HIV">HIV</option>
-           <option value = "Serotype">Serotype</option>
+			{% if answer == "Gender VS Location VS Presence" %}
+           <option value = "Gender VS Location VS Presence" selected>Gender VS Location VS Presence</option>
+           <option value = "HIV VS Presence">HIV VS Presence</option>
+           <option value = "Serotype Development in Weeks">Serotype Development in Weeks</option>
+			{% elif answer == "HIV VS Presence" %}
+		   <option value = "Gender VS Location VS Presence">Gender VS Location VS Presence</option>
+           <option value = "HIV VS Presence" selected>HIV VS Presence</option>
+           <option value = "Serotype Development in Weeks">Serotype Development in Weeks</option>
+			{% else %}
+		   <option value = "Gender VS Location VS Presence">Gender VS Location VS Presence</option>
+           <option value = "HIV VS Presence">HIV VS Presence</option>
+           <option value = "Serotype Development in Weeks" selected>Serotype Development in Weeks</option>
+			{% endif %}
         </select>
+        <input type="submit" value="Select">
+        {% if answer == "Serotype Development in Weeks" %}
+        Patient ID: <input type="text" name="PID" value={{search}}>
+        <input type="submit" value="Search">
+        {% endif %}
      </form><br><br>
-<img  src="{% static "bar.png" %}" alt="bar" >
+<div id="chart-1"></div>
+
+{{ output|safe }}
+
    </div>
      </body>
 

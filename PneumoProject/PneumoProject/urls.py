@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'dashboard', views.ToDashboard, name='dashboard'),
     url(r'data', views.ToData, name='data'),
     url(r'query', views.ToQuery, name='query'),
+    url(r'popup(?P<pid>[\w]+)/$', views.ToDrill, name='popup'),
 
 
 
