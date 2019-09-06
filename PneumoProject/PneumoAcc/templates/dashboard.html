@@ -10,6 +10,7 @@
   body {
       font-family: "Lato", sans-serif;
   }
+  
   body {
       background: black url({% static "bg2.png" %}) no-repeat;
   }
@@ -80,6 +81,8 @@
   </style>
 <title>PneumoVis</title>
 </head>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js" ></script>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.timeseries.js" ></script>
 <body>
 
       <head>
@@ -107,8 +110,8 @@
              width:1000px;
              height:130px;
              background-color:color|transparent|initial|inherit;
-             padding-top:20px;
-             padding-left:5px;
+             padding-top:10px;
+             padding-left:0px;
 
              margin-left:380px;
 
@@ -142,31 +145,44 @@
              margin-left:30px;
              margin-right:7px;
              border-radius: 25px;
+
+
          }
+
+
          </style>
 
      <body>
          <center>
 
          <div class="container">
-             <div id="st-box"><br><br>
-				           Patients: <br> {{patients}}
+             <div id="st-box"><br>
+				Patients: <br> {{patients}} <br>
+				<img class = "center" src="{% static "patients.png" %}" alt="logo"  width="80" height="70"/>
              </div>
+
              <div id="nd-box">
-                 <br><br>
-                    Presence:<br> {{presence}} / {{samples}}
+                 <br>
+                    Presence:<br> {{presence}} / {{samples}}<br>
+					<img class = "center" src="{% static "detected.png" %}" alt="logo"  width="80" height="70"/>
+             </div>
+
+             <div id="rd-box">
+                 <br>Majority Serotype:<br> {{majority}}<br>
+                 <img class = "center" src="{% static "majority.png" %}" alt="logo"  width="80" height="70"/>
              </div>
              <div id="rd-box">
-                 <br><br>Majority Serotype:<br> {{majority}}
-             </div>
-             <div id="rd-box">
-                 <br><br>HIV Prevalence:<br> {{HIV}} / {{patients}}
+                 <br>HIV Prevalence:<br> {{HIV}} / {{patients}}<br>
+                 <img class = "center" src="{% static "hiv.png" %}" alt="logo"  width="80" height="70"/>
              </div>
 
          </div>
-         </center>
-     </body>
 
+         </center>
+   	<div class="container" id="chart-1" style="overflow: auto; margin-left:250px ;width:1300px; height:500px">{{output|safe}}</div>
+      
+     </body>
+     
     {% endblock %}
 
 </html>

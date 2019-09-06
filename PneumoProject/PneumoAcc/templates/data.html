@@ -127,19 +127,17 @@
         </div>
   <div class = "main">
     <table cellpadding="30" width=1000px height = 200px  ><tr><td align = "center"> <div class = "container"> <div id ="st-box">
-    <p style="color:black;font-size: 25px;">Filter Data By Attribute</p><br>
-     <form>
-        <select name = "dropdown">
-           <option value = "PatientID" selected>PatientID</option>
-           <option value = "Age">Age</option>
-           <option value = "Site">Site</option>
-           <option value = "HIV">HIV</option>
-           <option value = "Serotype">Serotype</option>
-        </select>
-      </td></tr></table><br><br>
-     <div style="overflow:scroll;     height:250px;">
+    <p style="color:black;font-size: 25px;">Filter Data By Patient ID</p><br>
+     <form method="post"> {% csrf_token %}
+        <input type="text" name="PID" value={{answer}}>
+        <input type="submit" value="Search">
+     </form></div></td><td align = "center" >
 
-     <table align = "center" id ="lol" width=400px cellpadding="10" bgcolor="white" border= "solid" black>
+</div>
+      </td></tr></table><br>
+     <div style="overflow:scroll;     height:425px;">
+
+     <table id ="lol" width=350px cellpadding="5" bgcolor="white" border= "solid" black>
   <tr>
     <th>PatientID</th>
     <th>Barcode</th>
@@ -176,7 +174,7 @@
     </tr>
     {% endfor %}
 
-</table> </div><br><button  align = "center"type="button">Export as CSV</button></div>
+</table> </div><br>
      </body>
 
     {% endblock %}

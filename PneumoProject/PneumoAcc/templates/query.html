@@ -23,6 +23,22 @@
       cursor: pointer; /* Pointer/hand icon */
       float: left; /* Float the buttons side by side */
   }
+  
+     #st-box {
+       float:left;
+       width:400px;
+       height:150px;
+       background-color:#C4C9E6;
+       margin-left:1px;
+       margin-right:7px;
+       padding-left:5px;
+       padding-top:15px;
+
+
+       border-radius: 25px;
+
+   }
+  
   .center {
     display: block;
     margin-left: auto;
@@ -81,16 +97,14 @@
   </style>
 <title>PneumoVis</title>
 </head>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js" ></script>
+<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.timeseries.js" ></script>
 <body>
 
       <head>
-        <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
-         <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
-
       <link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="/Users/user/PneumoProject/assets/styles.css"> <br><br>
       <body>
-
   <!-- Side Navigation bar-->
 
         <div class="sidenav" align = "left">
@@ -108,27 +122,34 @@
 
         </div>
   <div class = "main">
-    <p style="color:#C4C9E6;font-size: 25px;">Visualization Filter:</p><br>
-     <form>
+	  <table cellpadding="10" width=1000px height = 200px  ><tr><td align = "center"> <div class = "container"> <div id ="st-box">
+    <p style="color:#171717;font-size: 25px;">Visualization Filter:</p>
+     <form method="post"> {% csrf_token %}
         <select name = "dropdown">
-           <option value = "PatientID" selected>PatientID</option>
-           <option value = "Age">Age</option>
-           <option value = "Site">Site</option>
-           <option value = "HIV">HIV</option>
-           <option value = "Serotype">Serotype</option>
+			{% if answer == "Gender VS Location VS Presence" %}
+           <option value = "Gender VS Location VS Presence" selected>Gender VS Location VS Presence</option>
+           <option value = "HIV VS Presence">HIV VS Presence</option>
+           <option value = "Serotype Chart Per Patient">Serotype Chart Per Patient</option>
+			{% elif answer == "HIV VS Presence" %}
+		   <option value = "Gender VS Location VS Presence">Gender VS Location VS Presence</option>
+           <option value = "HIV VS Presence" selected>HIV VS Presence</option>
+           <option value = "Serotype Chart Per Patient">Serotype Chart Per Patient</option>
+			{% else %}
+		   <option value = "Gender VS Location VS Presence">Gender VS Location VS Presence</option>
+           <option value = "HIV VS Presence">HIV VS Presence</option>
+           <option value = "Serotype Chart Per Patient" selected>Serotype Chart Per Patient</option>
+			{% endif %}
         </select>
+        <input type="submit" value="Select">
+        {% if answer == "Serotype Chart Per Patient" %}
+        Patient ID: <input type="text" name="PID" value={{search}}>
+        <input type="submit" value="Search">
+        {% endif %}
      </form><br><br>
- <!--<img  src="{% static "bar.png" %}" alt="bar" >-->
- <head>
-  {% load static %}
-   </head>
-<bodystyle="font-family:'Helvetica Neue', Arial; font-size: 16px;">
-<h3>{{ chartTitle|safe }}</h3>
-<div id="chart-1">{{ output|safe }}</div>
-<div id="chart-2">{{ output_2|safe }}</div>
-<br/>
-<a href="/">Back</a>>
-</body>
+<div id="chart-1"></div>
+
+{{ output|safe }}
+
    </div>
      </body>
 

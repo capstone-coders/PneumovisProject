@@ -1,1 +1,0 @@
-import aggregatorStore from"@fusioncharts/datatable/src/aggregators/";export{aggregatorStore};
