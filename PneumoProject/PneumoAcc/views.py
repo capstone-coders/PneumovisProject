@@ -159,7 +159,7 @@ def ToDashboard(request):
 		]
 	}
 
-
+    #Preparing a chart from Fusion Charts collection to be displayed
 	chartObj = FusionCharts('heatmap', 'ex1', '11000', '1000', 'chart-1', 'json', dataSource)#Accessing fusionCharts chart library
 
     # The values below are data sumariies of the data contained in the database, these values are calculated using SQL commands
@@ -208,6 +208,7 @@ def ToDrill(request,pid):
 	dataSource["rows"] = []
 	rowarr = {}
 	rowarr["row"] = []
+
     # Collecting all the unique serotypes and adding them to the graph on the y-axis in alphabetical order
 	for key in database.objects.using('mysql').raw('SELECT DISTINCT(Serotype) as id from PneumoVis ORDER BY Serotype ASC'):
 		row = {}
@@ -215,7 +216,6 @@ def ToDrill(request,pid):
 		row["Label"] = key.id
 		rowarr["row"].append(row)
 	dataSource["rows"] = rowarr
-
 	dataSource["columns"] = []
 	colarr = {}
 	colarr["column"] = []
@@ -224,11 +224,12 @@ def ToDrill(request,pid):
 	c["Label"] = answer
 	colarr["column"].append(c)
 	dataSource["columns"] = colarr
-
 	dataSource["dataset"] = []
 	datarr = {}
 	temp = []
 	datarr["data"] = []
+
+    #Selecting and displaying all the serotypes associated witha  specific patient
 	for key in database.objects.using('mysql').raw('SELECT Patient_ID as id, Serotype from PneumoVis WHERE Patient_ID=%s', [answer]):
 		d = {}
 		d["rowid"] = key.Serotype
@@ -239,6 +240,7 @@ def ToDrill(request,pid):
 	temp.append(datarr)
 	dataSource["dataset"].append(datarr)
 
+    #Setting the colours of the blocks on the graph
 	dataSource['colorrange'] = {
 		"gradient": "0",
 		"minvalue": "0",
@@ -252,10 +254,15 @@ def ToDrill(request,pid):
 		]
 	}
 
-	chartObj = FusionCharts('heatmap', 'ex1', '200', '550', 'chart-1', 'json', dataSource)
+    #Preparing a chart from Fusion Charts collection to be displayed
+	chartObj = FusionCharts('heatmap', 'ex1', '200', '550', 'chart-1', 'json', dataSource)#Accessing fusionCharts chart library
 	content = { "output":chartObj.render() }
 	return render(request, "popup.html", content)
 
+#The 'ToQuery' method is used on the Query page where the user selects a visual filter.
+#The method is used to determine the type of graph and visual data to display,
+#depending on the visual filter chosen by the user. This method prepares the necessary
+#data that needs to be filtered appropriately to display the correct data as a specific graph.
 def ToQuery(request):
 	answer = "Gender VS Location VS Presence"
 	search = ""
@@ -264,8 +271,11 @@ def ToQuery(request):
 		if 'PID' in request.POST:
 			search=request.POST['PID']
 
+    # This if statement checks to see which graph the user has chosen so that it can be displayed
 	if answer == "Gender VS Location VS Presence":
 		dataSource = {}
+
+        # Below the pre conditions for the Gender vs Location vs Presence graph is set
 		dataSource['chart'] = {
 			"caption": "Gender vs Location vs Presence",
 			"showvalues": "0",
@@ -274,57 +284,65 @@ def ToQuery(request):
 			"drawcrossline": "1",
 			"formatnumberscale": "1",
 			"plottooltext": "<b>$dataValue</b> are <b>$seriesName</b> in $label",
-			"theme": "candy"
+			"theme": "fusion"
 		}
 
 		dataSource["categories"] = []
 		catarr = {}
 		catarr["category"] = []
+
+        # The for loop below goes through the entire data and collects all the unique sites in the database
 		for key in database.objects.using('mysql').raw('SELECT DISTINCT(site) as id from PneumoVis'):
 			c = {}
 			c["label"] = key.id
 			catarr["category"].append(c)
 		dataSource["categories"].append(catarr)
-
 		dataSource["dataset"] = []
 		s1atarr = {}
 		s1atarr["seriesname"] = "Male With No Presence"
 		s1atarr["data"] = []
+
+        # This SQL statement counts the number of patients that are male with no presence of the disease so that it can be displayed on the bar graph
 		for key in database.objects.using('mysql').raw('SELECT site as id, sex, Presence, COUNT(Presence) as count FROM (SELECT DISTINCT(Patient_ID) as id, site, sex, Presence FROM PneumoVis WHERE sex="Male" AND Presence="No") as t GROUP BY site, sex, Presence'):
 			d = {}
 			d["value"] = key.count
 			s1atarr["data"].append(d)
 		dataSource["dataset"].append(s1atarr)
-
 		s2atarr = {}
 		s2atarr["seriesname"] = "Male With Presence"
 		s2atarr["data"] = []
+
+        # This SQL statement counts the number of patients that are male with a presence of the disease so that it can be displayed on the bar graph
 		for key in database.objects.using('mysql').raw('SELECT site as id, sex, Presence, COUNT(Presence) as count FROM (SELECT DISTINCT(Patient_ID) as id, site, sex, Presence FROM PneumoVis WHERE sex="Male" AND Presence="Yes") as t GROUP BY site, sex, Presence;'):
 			d = {}
 			d["value"] = key.count
 			s2atarr["data"].append(d)
 		dataSource["dataset"].append(s2atarr)
-
 		s3atarr = {}
 		s3atarr["seriesname"] = "Female With No Presence"
 		s3atarr["data"] = []
+
+        # This SQL statement counts the number of patients that are female with no presence of the disease so that it can be displayed on the bar graph
 		for key in database.objects.using('mysql').raw('SELECT site as id, sex, Presence, COUNT(Presence) as count FROM (SELECT DISTINCT(Patient_ID) as id, site, sex, Presence FROM PneumoVis WHERE sex="Female" AND Presence="No") as t GROUP BY site, sex, Presence;'):
 			d = {}
 			d["value"] = key.count
 			s3atarr["data"].append(d)
 		dataSource["dataset"].append(s3atarr)
-
 		s4atarr = {}
 		s4atarr["seriesname"] = "Female With Presence"
 		s4atarr["data"] = []
+
+        # This SQL statement counts the number of patients that are female with a presence of the disease so that it can be displayed on the bar graph
 		for key in database.objects.using('mysql').raw('SELECT site as id, sex, Presence, COUNT(Presence) as count FROM (SELECT DISTINCT(Patient_ID) as id, site, sex, Presence FROM PneumoVis WHERE sex="Female" AND Presence="Yes") as t GROUP BY site, sex, Presence;'):
 			d = {}
 			d["value"] = key.count
 			s4atarr["data"].append(d)
 		dataSource["dataset"].append(s4atarr)
 
+        #Preparing a chart from Fusion Charts collection to be displayed
 		chartObj = FusionCharts('mscolumn2d', 'ex1', '1000', '480', 'chart-1', 'json', dataSource)
 
+    # This next part of the if-statement checks if the user selected the HIV VS Presence graph in the drop-down menu
 	elif answer == "HIV VS Presence":
 		dataSource = {}
 		dataSource['chart'] = {
@@ -332,7 +350,7 @@ def ToQuery(request):
 			"theme": "fusion",
 			"xaxisminvalue": "0",
 			"xaxismaxvalue": "100",
-			"yaxisminvalue": "0",
+			"yaxisminvalue": "0", # OPTIMIZE:
 			"yaxismaxvalue": "100",
 			"xaxisname": "Presence",
 			"yaxisname": "HIV",
@@ -350,12 +368,12 @@ def ToQuery(request):
 			"showLabels": "0",
 			"showValues": "1"
 		}
-
 		dataSource["categories"] = []
-
 		dataSource["dataset"] = []
 		s1atarr = {}
 		s1atarr["data"] = []
+
+        #This for-loop uses SQL statements to collect all the data regarding the HIV exposure as well as the counts the number with and without HIV exposure
 		for key in database.objects.using('mysql').raw('SELECT HIVexpose as id, Presence, COUNT(Presence) as count FROM (SELECT DISTINCT(Patient_ID), HIVexpose, Presence FROM PneumoVis WHERE HIVexpose!="") as t GROUP BY HIVexpose, Presence'):
 			d = {}
 			if key.id == "No" and key.Presence == "No":
@@ -376,11 +394,12 @@ def ToQuery(request):
 			d["name"] = str(key.count)+" Patients"
 			s1atarr["data"].append(d)
 		dataSource["dataset"].append(s1atarr)
-
 		dataSource["trendlines"] = []
 
+        #Preparing a chart from Fusion Charts collection to be displayed
 		chartObj = FusionCharts('bubble', 'ex1', '1000', '480', 'chart-1', 'json', dataSource)
 
+    # the else is for displaying the last possibe graph choice of the user whic is a Serotype chart per patient
 	else:
 		dataSource = {}
 		dataSource['chart'] = {
@@ -393,24 +412,29 @@ def ToQuery(request):
 			"plottooltext": "<b>$dataValue</b> data collected from <b>$label</b>",
 			"theme": "fusion"
 		}
-
 		dataSource["categories"] = []
 		catarr = {}
 		catarr["category"] = []
+
 		if search == "":
+            #This SQL statement is used to add ALL patient records to a new database for displaying as a graph
 			newdatabase = database.objects.using('mysql').raw('SELECT Patient_ID as id, COUNT(Patient_ID) as count FROM PneumoVis GROUP BY Patient_ID ORDER BY Patient_ID ASC')
 		else:
+            #This SQL statement is used to add a SPECIFIC patients record to a new database for displaying as a graph
 			newdatabase = database.objects.using('mysql').raw('SELECT Patient_ID as id, COUNT(Patient_ID) as count FROM PneumoVis WHERE Patient_ID=%s GROUP BY Patient_ID ORDER BY Patient_ID ASC', [search])
+
+        #Displaying of the records in the newly temporary created database
 		for key in newdatabase:
 			c = {}
 			c["label"] = key.id
 			catarr["category"].append(c)
 		dataSource["categories"].append(catarr)
-
 		dataSource["dataset"] = []
 		s1atarr = {}
 		s1atarr["seriesname"] = "Number of Data Collected"
 		s1atarr["data"] = []
+
+        # For-Loop uses the data in the new temporary database to show more detailed information on a selected patient as a pop-up
 		for key in newdatabase:
 			d = {}
 			d["value"] = key.count
@@ -418,10 +442,12 @@ def ToQuery(request):
 			s1atarr["data"].append(d)
 		dataSource["dataset"].append(s1atarr)
 
+        #Preparing a chart from Fusion Charts collection to be displayed
 		chartObj = FusionCharts('scrollstackedcolumn2d', 'ex1', '1000', '480', 'chart-1', 'json', dataSource)
 
 	content = {"output":chartObj.render(), "answer":answer, "search":search}
 	return render(request, 'query.html', content)
-    # Create your views here.
+
+#Takes user to a new page to change their current password
 path('password-change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
 path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
