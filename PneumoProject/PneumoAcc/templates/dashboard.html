@@ -10,7 +10,7 @@
   body {
       font-family: "Lato", sans-serif;
   }
-  
+
   body {
       background: black url({% static "bg2.png" %}) no-repeat;
   }
@@ -96,8 +96,8 @@
           <h1 > &ensp;PneumoVis</h1><img class = "center" src="{% static "logo.png" %}" alt="logo"  width="80" height="80"/>
   <hr>
           <a href="{% url 'dashboard' %}">Dashboard</a>
-          <a href="{% url 'data' %}">Data</a>
-          <a href="{% url 'query' %}">Query</a><hr>
+          <a href="{% url 'data' %}">Data Filter</a>
+          <a href="{% url 'query' %}">Visualizations Filter</a><hr>
           <br><br><br><br><br><br><br>
           <a href="{% url 'password_change' %}" align = 'center'>
         <button class= #button class = "center">Change Password</button>
@@ -157,13 +157,13 @@
 
          <div class="container">
              <div id="st-box"><br>
-				Patients: <br> {{patients}} <br>
+				Total Patients: <br> {{patients}} <br>
 				<img class = "center" src="{% static "patients.png" %}" alt="logo"  width="80" height="70"/>
              </div>
 
              <div id="nd-box">
                  <br>
-                    Presence:<br> {{presence}} / {{samples}}<br>
+                    Disease Presence:<br> {{presence}} / {{samples}}<br>
 					<img class = "center" src="{% static "detected.png" %}" alt="logo"  width="80" height="70"/>
              </div>
 
@@ -180,9 +180,9 @@
 
          </center>
    	<div class="container" id="chart-1" style="overflow: auto; margin-left:250px ;width:1300px; height:500px">{{output|safe}}</div>
-      
+
      </body>
-     
+
     {% endblock %}
 
 </html>
