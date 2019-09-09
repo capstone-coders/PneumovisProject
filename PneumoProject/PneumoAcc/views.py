@@ -28,6 +28,7 @@ def ToDashboard(request):
 	dataSource = {}
 	dataSource['chart'] = { 
 		"theme": "fusion",
+		"exportEnabled": "1",
 		"valuefontsize": "25",
 		"showlabels": "1",
 		"showvalues": "0",
@@ -117,22 +118,22 @@ def ToDashboard(request):
 			"maxvalue": "10"
 		      },
 		      {
-			"code": "#2471A3",
+			"code": "#0000FF",
 			"minvalue": "11",
 			"maxvalue": "20"
 		      },
 		      {
-			"code": "#F1948A",
+			"code": "#FD79D6",
 			"minvalue": "21",
 			"maxvalue": "30"
 		      },
 		      {
-			"code": "#6C3483",
+			"code": "#189C00",
 			"minvalue": "31",
 			"maxvalue": "40"
 		      },
 		      {
-			"code": "#F4D03F",
+			"code": "#D6D6D6",
 			"minvalue": "41",
 			"maxvalue": "50"
 		      }
@@ -165,6 +166,7 @@ def ToDrill(request,pid):
 	dataSource = {}
 	dataSource['chart'] = { 
 		"theme": "fusion",
+		"exportEnabled": "1",
 		"valuefontsize": "25",
 		"showlabels": "1",
 		"showvalues": "0",
@@ -177,10 +179,19 @@ def ToDrill(request,pid):
 		"xAxisName": "Patient ID",
 		"yAxisName": "Serotype",
         }
-        
+
 	dataSource["rows"] = []
 	rowarr = {}
 	rowarr["row"] = []
+	ro1 = {}
+	ro1["id"] = "Gender"
+	ro1["Label"] = "Gender"
+	rowarr["row"].append(ro1)
+	ro2 = {}
+	ro2["id"] = "HIV Status"
+	ro2["Label"] = "HIV Status"
+	rowarr["row"].append(ro2)
+	
 	for key in database.objects.using('mysql').raw('SELECT DISTINCT(Serotype) as id from PneumoVis ORDER BY Serotype ASC'):
 		row = {}
 		row["id"] = key.id
@@ -201,6 +212,28 @@ def ToDrill(request,pid):
 	datarr = {}
 	temp = []
 	datarr["data"] = []
+	for key in database.objects.using('mysql').raw('SELECT DISTINCT(Patient_ID) as id, sex from PneumoVis WHERE Patient_ID=%s', [answer]):
+		d = {}
+		if key.sex == "Male":
+			x = 20
+		else:
+			x = 30
+		d["rowid"] = "Gender"
+		d["columnid"] = key.id
+		d["value"] = x
+		d["displayvalue"] = key.sex
+		datarr["data"].append(d)
+	for key in database.objects.using('mysql').raw('SELECT DISTINCT(Patient_ID) as id, HIVexpose from PneumoVis WHERE Patient_ID=%s', [answer]):
+		d = {}
+		if key.HIVexpose == "Yes":
+			x = 40
+		else:
+			x = 50
+		d["rowid"] = "HIV Status"
+		d["columnid"] = key.id
+		d["value"] = x
+		d["displayvalue"] = key.HIVexpose
+		datarr["data"].append(d)
 	for key in database.objects.using('mysql').raw('SELECT Patient_ID as id, Serotype from PneumoVis WHERE Patient_ID=%s', [answer]):
 		d = {}
 		d["rowid"] = key.Serotype
@@ -221,6 +254,26 @@ def ToDrill(request,pid):
 			"minvalue": "0",
 			"maxvalue": "10"
 		      },
+		      {
+			"code": "#0000FF",
+			"minvalue": "11",
+			"maxvalue": "20"
+		      },
+		      {
+			"code": "#FF79D6",
+			"minvalue": "21",
+			"maxvalue": "30"
+		      },
+		      {
+			"code": "#189C00",
+			"minvalue": "31",
+			"maxvalue": "40"
+		      },
+		      {
+			"code": "#D6D6D6",
+			"minvalue": "41",
+			"maxvalue": "50"
+		      }
 		]
 	}
 	
@@ -242,6 +295,7 @@ def ToQuery(request):
 			"caption": "Gender vs Location vs Presence",
 			"showvalues": "0",
 			"xAxisName": "Location",
+			"exportEnabled": "1",
 			"yAxisName": "Patient Count",
 			"drawcrossline": "1",
 			"formatnumberscale": "1",
@@ -305,6 +359,7 @@ def ToQuery(request):
 			"xaxisminvalue": "0",
 			"xaxismaxvalue": "100",
 			"yaxisminvalue": "0",
+			"exportEnabled": "1",
 			"yaxismaxvalue": "100",
 			"xaxisname": "Presence",
 			"yaxisname": "HIV",
@@ -353,7 +408,7 @@ def ToQuery(request):
 		
 		chartObj = FusionCharts('bubble', 'ex1', '1000', '480', 'chart-1', 'json', dataSource)
 		
-	else:
+	elif answer == "Serotype Chart Per Patient":
 		dataSource = {}
 		dataSource['chart'] = { 
 			"caption": "Number of Collected Data Per Patient",
@@ -361,6 +416,7 @@ def ToQuery(request):
 			"yaxisname": "Number of Collected Data",
 			"flatscrollbars": "0",
 			"scrollheight": "12",
+			"exportEnabled": "1",
 			"numvisibleplot": "10",
 			"plottooltext": "<b>$dataValue</b> data collected from <b>$label</b>",
 			"theme": "fusion"
@@ -387,6 +443,40 @@ def ToQuery(request):
 			d = {}
 			d["value"] = key.count
 			d["link"] = "n-detailsWin,width=220,height=580,toolbar=no-http://localhost:8000/popup"+key.id
+			s1atarr["data"].append(d)
+		dataSource["dataset"].append(s1atarr)
+		
+		chartObj = FusionCharts('scrollstackedcolumn2d', 'ex1', '1000', '480', 'chart-1', 'json', dataSource)
+		
+	else:
+		dataSource = {}
+		dataSource['chart'] = { 
+			"caption": "Serotype Counts",
+			"yaxisname": "Number of Detected Serotype",
+			"flatscrollbars": "0",
+			"scrollheight": "12",
+			"exportEnabled": "1",
+			"numvisibleplot": "10",
+			"plottooltext": "<b>$dataValue</b> of Serotype <b>$label</b> Detected",
+			"theme": "fusion"
+		}
+		
+		dataSource["categories"] = []
+		catarr = {}
+		catarr["category"] = []
+		for key in database.objects.using('mysql').raw('SELECT DISTINCT(Serotype) as id FROM PneumoVis WHERE Serotype!="" ORDER BY Serotype ASC'):
+			c = {}
+			c["label"] = key.id
+			catarr["category"].append(c)
+		dataSource["categories"].append(catarr)
+		
+		dataSource["dataset"] = []
+		s1atarr = {}
+		s1atarr["seriesname"] = "Number of Detected Serotype"
+		s1atarr["data"] = []
+		for key in database.objects.using('mysql').raw('SELECT Serotype as id, COUNT(Serotype) as count FROM PneumoVis WHERE Serotype!="" GROUP BY Serotype ORDER BY Serotype ASC'):
+			d = {}
+			d["value"] = key.count
 			s1atarr["data"].append(d)
 		dataSource["dataset"].append(s1atarr)
 		
