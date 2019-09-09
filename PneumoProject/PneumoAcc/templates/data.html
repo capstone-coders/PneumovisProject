@@ -116,8 +116,8 @@
           <h1 color= "#C4C9E6" > &ensp;PneumoVis</h1><img class = "center" src="{% static "logo.png" %}" alt="logo"  width="80" height="80"/>
   <hr>
           <a href="{% url 'dashboard' %}">Dashboard</a>
-          <a href="{% url 'data' %}">Data</a>
-          <a href="{% url 'query' %}">Query</a><hr>
+          <a href="{% url 'data' %}">Data Filter</a>
+          <a href="{% url 'query' %}">Visualizations Filter</a><hr>
           <br><br><br><br><br><br><br>
           <a href="{% url 'password_change' %}" align = 'center'>
         <button class= #button class = "center">Change Password</button>
@@ -127,7 +127,7 @@
         </div>
   <div class = "main">
     <table cellpadding="30" width=1000px height = 200px  ><tr><td align = "center"> <div class = "container"> <div id ="st-box">
-    <p style="color:black;font-size: 25px;">Filter Data By Patient ID</p><br>
+    <p style="color:black;font-size: 25px;">Filter Data By Patient ID</p> e.g. Enter PT1 for Patient 1.
      <form method="post"> {% csrf_token %}
         <input type="text" name="PID" value={{answer}}>
         <input type="submit" value="Search">
