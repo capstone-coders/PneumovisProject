@@ -130,14 +130,22 @@
            <option value = "Gender VS Location VS Presence" selected>Gender VS Location VS Presence</option>
            <option value = "HIV VS Presence">HIV VS Presence</option>
            <option value = "Serotype Chart Per Patient">Serotype Chart Per Patient</option>
+           <option value = "Serotype Count">Serotype Count</option>
 			{% elif answer == "HIV VS Presence" %}
 		   <option value = "Gender VS Location VS Presence">Gender VS Location VS Presence</option>
            <option value = "HIV VS Presence" selected>HIV VS Presence</option>
            <option value = "Serotype Chart Per Patient">Serotype Chart Per Patient</option>
-			{% else %}
+           <option value = "Serotype Count">Serotype Count</option>
+			{% elif answer == "Serotype Chart Per Patient" %}
 		   <option value = "Gender VS Location VS Presence">Gender VS Location VS Presence</option>
            <option value = "HIV VS Presence">HIV VS Presence</option>
            <option value = "Serotype Chart Per Patient" selected>Serotype Chart Per Patient</option>
+           <option value = "Serotype Count">Serotype Count</option>
+			{% else %}
+		   <option value = "Gender VS Location VS Presence">Gender VS Location VS Presence</option>
+           <option value = "HIV VS Presence">HIV VS Presence</option>
+           <option value = "Serotype Chart Per Patient" >Serotype Chart Per Patient</option>
+           <option value = "Serotype Count" selected>Serotype Count</option>
 			{% endif %}
         </select>
         <input type="submit" value="Select">
