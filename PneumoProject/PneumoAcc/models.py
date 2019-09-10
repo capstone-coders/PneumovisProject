@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Define database class and its associated fields
 
 class database(models.Model):
     id = models.AutoField(primary_key=True)
@@ -17,10 +17,10 @@ class database(models.Model):
     Disease = models.TextField(default='')
     Serotype = models.TextField(default='')
     vaccine_status = models.TextField(default='')
-    Sequence_Type = models.TextField(default='') 
-    
+    Sequence_Type = models.TextField(default='')
+
     class Meta:
         db_table = 'PneumoVis'
-    
+
     def __str__(self):
         return self.Patient_ID

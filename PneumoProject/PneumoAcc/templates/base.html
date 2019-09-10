@@ -1,23 +1,30 @@
+<!-- Base Page where common underlying design of web application is formatted and structured.
+Makes use of Bootstrap Template for formatting.
+-->
 <!doctype  html>
+
+<!--Load static files-->
 {% load static %}
 
 <html  lang="en">
 <head>
+<!--Link to bootstrap styles template-->
 <link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="/Users/user/PneumoProject/assets/styles.css"> <br><br>
 <div class="card-body"><title>PneumoVis</title></div>
+
 </head>
 <body>
   <div  class="container">
     <div  class="row justify-content-center">
       <div  class="col-4">
         <div class="card">
-        <div class="card-body">  <h1  class="text-center"><br><img src="{% static "logo.png" %}" alt="logo"  width="80" height="80"/> PneumoVis 
-</h1></div>
-      {% block main %}
-      <a href="{% url 'change_password' %}">
-    Change password
-</a>
+<!--Define PneumoVis Logo-->
+        <div class="card-body">  <h1  class="text-center"><br><img src="{% static "logo.png" %}" alt="logo"  width="80" height="80"/> PneumoVis </h1></div>
+        {% block main %}
+        <a href="{% url 'change_password' %}">
+          Change password
+        </a>
       {% endblock %}
       </div>
     </div>

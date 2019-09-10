@@ -1,11 +1,14 @@
+<!--Popup webpage that displays individual patients' Serotypes-->
+
 <!DOCTYPE html>
 <html>
   <head>
+    <!--Load Static Files and FusionCharts javascript files for Visualizations-->
     {% load static %}
     <script
       type="text/javascript"
-      src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"
-    ></script>
+      src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js">
+    </script>
     <script
       type="text/javascript"
       src="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.timeseries.js"
@@ -16,4 +19,3 @@
     {{ output|safe }}
   </body>
 </html>
-

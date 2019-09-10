@@ -1,7 +1,11 @@
+<!-- Login Page where user enters Username and Password to access their Dashboard.
+Makes use of Crispy Forms Template for formatting and error handling.
+-->
 {% extends  'base.html' %}
 {% load crispy_forms_tags %}
 
 {% block main %}
+<!--Load static files-->
 {% load static %}
 <link rel ="stylesheet" href = "{% static 'styles.css' %}">
 <div class="card">
@@ -9,10 +13,13 @@
 <h4 class="card-title"></h4>
 
 <form method="post">
+<!--when the server receives POST requests, the server checks for a CSRF token-->
+
 {% csrf_token %}
 <input type="hidden" name="next" value="{{ next }}">
 
 {{ form|crispy }}
+<!---Formatting for body-->
 <style>
 body {
     font-family: "Lato", sans-serif;
@@ -21,6 +28,7 @@ body {
     background: black url({% static "bg.jpg" %}) no-repeat;
 }
 </style>
+<!--Submit button for Log in-->
 <button type="submit" class="btn btn-primary btn-block">Log in</button>
 </form>
 </div>

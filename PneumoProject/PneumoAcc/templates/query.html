@@ -1,19 +1,25 @@
-
+<!-- Visualizations Query Page which includes a selection of interactive graphs
+-->
 <!doctype  html>
 <html  lang="en">
+
+<!--Load Static Files-->
 {% load static %}
 {% block content %}
 
+<!--Load Styles CSS sheet and define formatting for web page-->
 <head>
   <link rel ="stylesheet" href = "{% static 'styles.css' %}">
   <style>
   body {
       font-family: "Lato", sans-serif;
   }
-  body {
+  body
+    {
       background: black url({% static "bg2.png" %}) no-repeat;
-  }
-  .btn-group button {
+    }
+  .btn-group button
+    {
       background-color: black; /* darkblue background */
       border: 1px solid black; /* blue border */
       color: white; /* White text */
@@ -22,9 +28,10 @@
       padding: 10px 24px; /* Some padding */
       cursor: pointer; /* Pointer/hand icon */
       float: left; /* Float the buttons side by side */
-  }
+    }
 
-     #st-box {
+     #st-box
+      {
        float:left;
        width:400px;
        height:150px;
@@ -33,62 +40,68 @@
        margin-right:7px;
        padding-left:5px;
        padding-top:15px;
-
-
        border-radius: 25px;
+     }
 
-   }
-
-  .center {
+  .center
+    {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 40%;
-  }
+    }
   /* Clear floats (clearfix hack) */
-  .btn-group:after {
+  .btn-group:after
+    {
       content: "";
       clear: both;
       display: table;
-  }
+    }
 
-  .btn-group button:not(:last-child) {
+  .btn-group button:not(:last-child)
+    {
       border-right: none; /* Prevent double borders */
-  }
+    }
 
   /* Add a background color on hover */
-  .btn-group button:hover {
+  .btn-group button:hover
+    {
       background-color: black;
-  }
-  .sidenav {
+    }
+  .sidenav
+    {
       height: 100%;
       width: 240px;
       position: fixed;
       z-index: 1;
       top: 0;
       left: 0;
-      background-color: #F7F8FA;
+      background-color: white;
       overflow-x: hidden;
       padding-top: 20px;
-  }
+    }
 
-  .sidenav a {
+  .sidenav a
+    {
       padding: 6px 6px 6px 32px;
       text-decoration: none;
       font-size: 20px;
       color: black;
       display: block;
-  }
+    }
 
-  .sidenav a:hover {
+  .sidenav a:hover
+    {
       color: #A1AEDB;
-  }
-.h1{
+    }
+  .h1
+    {
   color: #C4C9E6;
-}
-  .main {
+    }
+  .main
+    {
       margin-left: 300px; /* Same as the width of the sidenav */
-  }
+    }
 
   @media screen and (max-height: 300px) {
     .sidenav {padding-top: 15px;}
@@ -105,26 +118,32 @@
       <link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="/Users/user/PneumoProject/assets/styles.css"> <br><br>
       <body>
-  <!-- Side Navigation bar-->
 
+  <!-- Side Navigation bar-->
         <div class="sidenav" align = "left">
           <br>
           <h1 color= "#C4C9E6" > &ensp;PneumoVis</h1><img class = "center" src="{% static "logo.png" %}" alt="logo"  width="80" height="80"/>
-  <hr>
+          <hr>
+          <!--SideNav Links to Relative webpages-->
           <a href="{% url 'dashboard' %}">Dashboard</a>
           <a href="{% url 'data' %}">Data Filter</a>
           <a href="{% url 'query' %}">Visualizations Filter</a><hr>
           <br><br><br><br><br><br><br>
+          <!--Button for changing password-->
           <a href="{% url 'password_change' %}" align = 'center'>
-        <button class= #button class = "center">Change Password</button>
+          <button class= #button class = "center">Change Password</button>
           </a><br>
+          <!--Button for logging out-->
           <a href="{% url 'login' %}" align = "center"><button class= #button class = "center">Log out</button></a>
 
         </div>
-  <div class = "main">
+    <!--Main Section of Web Application-->
+    <div class = "main">
+    <!--Define table for data to be filtered in-->
 	  <table cellpadding="10" width=1000px height = 200px  ><tr><td align = "center"> <div class = "container"> <div id ="st-box">
-    <p style="color:#171717;font-size: 25px;">Visualization Filter:</p>
+    <p style="color:#171717;font-size: 25px;">Visualization Filter</p>
      <form method="post"> {% csrf_token %}
+    <!--Dropdown box to select Visualization option from-->
         <select name = "dropdown">
 			{% if answer == "Gender VS Location VS Presence" %}
            <option value = "Gender VS Location VS Presence" selected>Gender VS Location VS Presence</option>
@@ -155,12 +174,8 @@
         {% endif %}
      </form><br><br>
 <div id="chart-1"></div>
-
 {{ output|safe }}
-
-   </div>
-     </body>
-
-    {% endblock %}
-
+</div>
+</body>
+{% endblock %}
 </html>
